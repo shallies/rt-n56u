@@ -1,4 +1,4 @@
-name: Build MT7621-1
+name: Build_K2P_V5
 
 on: 
   release:
