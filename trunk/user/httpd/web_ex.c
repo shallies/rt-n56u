@@ -4221,7 +4221,7 @@ struct mime_handler mime_handlers[] = {
 	/* no-cached html/asp files with translations */
 	{ "**.htm*", "text/html", no_cache_IE, do_html_apply_post, do_ej, 1 },
 	{ "**.asp*", "text/html", no_cache_IE, do_html_apply_post, do_ej, 1 },
-	{ "**.log", "text/plain", NULL, NULL, do_file, 0 }, // 2012.06 Eagle23
+	{ "**.log", "text/plain", no_cache_IE7, NULL, do_file, 0 }, // 2012.06 Eagle23
 
 	/* no-cached javascript files with translations */
 	{ "**.js",  "text/javascript", no_cache_IE, NULL, do_ej, 1 },
