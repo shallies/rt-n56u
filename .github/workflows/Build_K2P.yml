@@ -98,11 +98,11 @@ jobs:
         sed -i "s/^CONFIG_TOOLCHAIN_DIR=.*$/CONFIG_TOOLCHAIN_DIR=${CONFIG_TOOLCHAIN_DIR}/g" .config
         sudo ./clear_tree_simple
         sudo ./build_firmware_modify $m 0
-        sudo mv -f images/*.trx /opt/images/$m_3.4.3.9-099.trx
+        sudo mv -f images/*.trx /opt/images/$m.3.4.3.9-099.trx
         done
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: Padavan-packages
+        name: Padavan-K2P-packages
         path: /opt/images
