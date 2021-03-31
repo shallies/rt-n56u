@@ -98,11 +98,13 @@ jobs:
         sed -i "s/^CONFIG_TOOLCHAIN_DIR=.*$/CONFIG_TOOLCHAIN_DIR=${CONFIG_TOOLCHAIN_DIR}/g" .config
         sudo ./clear_tree_simple
         sudo ./build_firmware_modify $m 0
-        sudo mv -f images/*.trx /opt/images/$m.3.4.3.9-099.trx
+        sudo mv -f images/*.trx /opt/images/$m-3.4.3.9-099.trx
         done
-    - name : Upload packages
-      uses: actions/upload-artifact@master
-      if: always()
+    - name: 'Tar firmware'
+      run: tar -cvf Padavan-K2P-packages.tar /opt/images
+
+    - name: 'Upload packages'
+      uses: actions/upload-artifact@v2
       with:
-        name: Padavan-K2P-packages
-        path: /opt/images
+       name: Padavan-K2P-packages
+       path: Padavan-K2P-packages.tar
