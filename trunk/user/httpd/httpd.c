@@ -786,6 +786,12 @@ do_file(const char *url, FILE *stream)
 	}
 }
 
+void
+do_tmp_log(const char *url, FILE *stream)
+{
+	do_file(url, stream);
+}
+
 static int
 set_preferred_lang(char *cur)
 {
@@ -832,7 +838,8 @@ set_preferred_lang(char *cur)
 static void
 handle_request(FILE *conn_fp, const conn_item_t *item)
 {
-	char line[4096];
+	char line[2048];
+	char tmp_path[1024];
 	char *method, *path, *protocol, *authorization, *boundary;
 	char *cur, *end, *cp, *file, *query;
 	int len, login_state, method_id, do_logout, clen = 0;
@@ -1006,7 +1013,12 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 			do_cgi_clear();
 	}
 
-	if (handler->output == do_file) {
+	if (handler->output == do_tmp_log) {
+		strcpy(tmp_path, "/tmp/");
+		strcat(tmp_path, file);
+		file=tmp_path;
+	}
+	if (handler->output == do_file || handler->output == do_tmp_log) {
 		if (stat(file, &st) == 0 && !S_ISDIR(st.st_mode)) {
 			p_st = &st;
 			if (!handler->extra_header && if_modified_since != (time_t)-1 && if_modified_since == st.st_mtime) {
