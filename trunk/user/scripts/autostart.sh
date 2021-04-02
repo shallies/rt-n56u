@@ -11,32 +11,20 @@ logger -t "自动启动" "正在启动文件管理"
 fi
 
 logger -t "自动启动" "正在检查路由是否已连接互联网！"
-count=0
-while :
-do
-	ping -c 1 -W 1 -q www.baidu.com 1>/dev/null 2>&1
-	if [ "$?" == "0" ]; then
-		break
-	fi
-	ping -c 1 -W 1 -q 202.108.22.5 1>/dev/null 2>&1
-	if [ "$?" == "0" ]; then
-		break
-	fi
-	sleep 5
-	ping -c 1 -W 1 -q www.google.com 1>/dev/null 2>&1
-	if [ "$?" == "0" ]; then
-		break
-	fi
-	ping -c 1 -W 1 -q 8.8.8.8 1>/dev/null 2>&1
-	if [ "$?" == "0" ]; then
-		break
-	fi
-	sleep 5
-	count=$((count+1))
-	if [ $count -gt 18 ]; then
-		break
-	fi
+count=60
+while [ $count -gt 0 ]; do
+	ping -c 1 -W 1 114.114.114.114 >/dev/null
+	if [ $? = 0 ]; then
+		reak;
+	fi;
+	count=$((count-1))
+	sleep 1
 done
+
+if [ $(nvram get vlmcsd_enable) = 1 ] ; then
+logger -t "自动启动" "正在启动vlmcsd"
+/usr/bin/vlmcsd.sh start
+fi
 
 if [ $(nvram get adbyby_enable) = 1 ] ; then
 logger -t "自动启动" "正在启动adbyby plus+"
