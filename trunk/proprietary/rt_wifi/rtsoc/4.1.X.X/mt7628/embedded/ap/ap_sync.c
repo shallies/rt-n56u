@@ -74,7 +74,7 @@ VOID APPeerProbeReqAction(
 
 
 	if (PeerProbeReqSanity(pAd, Elem->Msg, Elem->MsgLen, &ProbeReqParam) == FALSE) {
-MTWF_LOG(DBG_CAT_ALL, DBG_SUBCAT_ALL, DBG_LVL_OFF, ("%s():shiang! PeerProbeReqSanity failed!\n", __FUNCTION__));
+//MTWF_LOG(DBG_CAT_ALL, DBG_SUBCAT_ALL, DBG_LVL_OFF, ("%s():shiang! PeerProbeReqSanity failed!\n", __FUNCTION__));
 		return;
 	}
 
