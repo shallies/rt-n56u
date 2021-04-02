@@ -10,11 +10,12 @@ logger -t "自动启动" "正在启动文件管理"
 /usr/bin/caddy.sh start
 fi
 
-logger -t "自动启动" "正在检查路由是否已连接互联网！"
+logger -t "自动启动" "正在检查Internet连接状态！"
 count=60
 while [ $count -gt 0 ]; do
 	ping -c 1 -W 1 114.114.114.114 >/dev/null
 	if [ $? = 0 ]; then
+		logger -t "自动启动" "Internet已连接！"
 		reak;
 	fi;
 	count=$((count-1))
