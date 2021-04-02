@@ -781,9 +781,9 @@ doSystem("/usr/sbin/skipd -d /etc/storage/db");
 //#if defined(APP_FRP)
 //	start_frp();
 //#endif
-#if defined(APP_VLMCSD)
-	start_vlmcsd();
-#endif
+//#if defined(APP_VLMCSD)
+//	start_vlmcsd();
+//#endif
 //#if defined(APP_KOOLPROXY)
 //	start_koolproxy();
 //#endif
