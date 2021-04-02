@@ -103,5 +103,5 @@ jobs:
     - name: 'Upload packages'
       uses: actions/upload-artifact@v2
       with:
-       name: Padavan-K2P-packages
+       name: Padavan-K2P-packages-$(date +%Y%m%d)
        path: /opt/images
