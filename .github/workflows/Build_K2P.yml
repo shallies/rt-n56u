@@ -100,7 +100,7 @@ jobs:
         sudo ./build_firmware_modify $m 0
         sudo mv -f images/*.trx /opt/images/$m-3.4.3.9-099.trx
         done
-        PackageName="Padavan-K2P-"$(date +%Y%m%d)
+        echo "PackageName=Padavan-K2P-$(date +%Y%m%d)" >> $GITHUB_ENV
     - name: 'Upload packages'
       uses: actions/upload-artifact@v2
       with:
