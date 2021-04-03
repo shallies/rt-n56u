@@ -100,8 +100,9 @@ jobs:
         sudo ./build_firmware_modify $m 0
         sudo mv -f images/*.trx /opt/images/$m-3.4.3.9-099.trx
         done
+        PackageName="Padavan-K2P-"$(date +%Y%m%d)
     - name: 'Upload packages'
       uses: actions/upload-artifact@v2
       with:
-       name: Padavan-K2P-packages
+       name: ${{ env.PackageName }}
        path: /opt/images
