@@ -42,5 +42,5 @@ case "$1" in
 esac
 
 if [ $2 ]; then
-	logger -t "【指示灯】" $2
+	logger -t "指示灯" $2
 fi
