@@ -16,7 +16,7 @@ while [ $count -gt 0 ]; do
 	ping -c 1 -W 1 114.114.114.114 >/dev/null
 	if [ $? = 0 ]; then
 		logger -t "自动启动" "Internet已连接！"
-		reak;
+		break;
 	fi;
 	count=$((count-1))
 	sleep 1
