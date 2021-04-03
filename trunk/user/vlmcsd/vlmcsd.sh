@@ -1,7 +1,7 @@
 #!/bin/sh
 
 func_start(){
-	vlmcsd -l /tmp/vlmcsd.log
+	vlmcsd -l /tmp/kms.log
 	logger -st "vlmcsd" "Start"
 }
 
