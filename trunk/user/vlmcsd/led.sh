@@ -38,6 +38,14 @@ case "$1" in
 			led_yellow
 		fi;;
 	*)
+		echo "LED control utitlity"
+		echo "Usage: $0 red|yellow|blue|-OFF|-ON [message]"
+		echo "red: Turn LED to red color"
+		echo "yellow: Turn LED to yellow color"
+		echo "blue: Turn LED to blue color"
+		echo "-OFF: Turn LED off"
+		echo "-ON: Turn LED on, blue if internet ready, otherwise yellow"
+		echo "If message provided, log it to syslog"
 		exit;;
 esac
 
