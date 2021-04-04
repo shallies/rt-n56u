@@ -920,7 +920,7 @@ struct nvram_pair router_defaults[] = {
 	{ "telnetd", "1" },
 	{ "sshd_enable", "0" },
 	{ "wins_enable", "0" },
-	{ "lltd_enable", "1" },
+	{ "lltd_enable", "0" },
 	{ "adsc_enable", "0" },
 	{ "crond_enable", "1" },
 	{ "crond_log", "0" },
