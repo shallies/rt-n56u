@@ -844,6 +844,9 @@ init_router(void)
 
 	init_gpio_leds_buttons();
 
+	cpu_gpio_set_pin(BOARD_GPIO_LED_WAN, 1);  //Try to correct LED color on touter init
+	cpu_gpio_set_pin(BOARD_GPIO_LED_POWER, 1);
+
 	if (nvram_need_commit)
 		nvram_commit();
 
@@ -879,6 +882,9 @@ init_router(void)
 	if (!log_remote)
 		start_logger(1);
 
+	cpu_gpio_set_pin(BOARD_GPIO_LED_WAN, 1);  //Try to correct LED color on touter init
+	cpu_gpio_set_pin(BOARD_GPIO_LED_POWER, 1);
+
 	is_ap_mode = get_ap_mode();
 
 	init_loopback();
@@ -894,9 +900,6 @@ init_router(void)
 
 	if (log_remote)
 		start_logger(1);
-
-	cpu_gpio_set_pin(BOARD_GPIO_LED_WAN, 1);  //Try to correct LED color on touter init
-	cpu_gpio_set_pin(BOARD_GPIO_LED_POWER, 1);
 
 #if defined (BOARD_HC5761A)
 	cpu_gpio_mode_set_bit(38, 1);
