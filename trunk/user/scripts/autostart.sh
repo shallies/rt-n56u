@@ -27,22 +27,22 @@ while [ $count -gt 0 ]; do
 done
 
 if [ $(nvram get vlmcsd_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动vlmcsd ..."
+logger -t "自动启动" "正在启动 vlmcsd ..."
 /usr/bin/vlmcsd.sh start
 fi
 
 if [ $(nvram get adbyby_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动adbyby plus+ ..."
+logger -t "自动启动" "正在启动 adbyby plus+ ..."
 /usr/bin/adbyby.sh start
 fi
 
 if [ $(nvram get koolproxy_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动koolproxy ..."
+logger -t "自动启动" "正在启动 koolproxy ..."
 /usr/bin/koolproxy.sh start
 fi
 
 if [ $(nvram get aliddns_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动阿里ddns ..."
+logger -t "自动启动" "正在启动阿里 ddns ..."
 /usr/bin/aliddns.sh start
 fi
 
@@ -52,16 +52,16 @@ logger -t "自动启动" "正在启动科学上网 ..."
 fi
 
 if [ $(nvram get adg_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动adguardhome ..."
+logger -t "自动启动" "正在启动 adguardhome ..."
 /usr/bin/adguardhome.sh start
 fi
 
 if [ $(nvram get wyy_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动音乐解锁 .."
+logger -t "自动启动" "正在启动音乐解锁 ..."
 /usr/bin/unblockmusic.sh start
 fi
 
 if [ $(nvram get zerotier_enable) = 1 ] ; then
-logger -t "自动启动" "正在启动zerotier ..."
+logger -t "自动启动" "正在启动 zerotier ..."
 /usr/bin/zerotier.sh start
 fi
