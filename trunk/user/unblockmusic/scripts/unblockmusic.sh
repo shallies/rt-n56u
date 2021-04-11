@@ -139,18 +139,19 @@ else
   	/usr/bin/UnblockNeteaseMusicCloud >/dev/null 2>&1 &
 	logger -t "音乐解锁" "启动 Cloud Version - Server: $cloudip (http:$cloudhttp, https:$cloudhttps)"
 fi
-		
+
 set_firewall
 	
 if [ "$APPTYPE" != "cloud" ]; then
-	/usr/bin/logcheck.sh >/dev/null 2>&1 &
+#	/usr/bin/logcheck.sh >/dev/null 2>&1 &
+	/usr/bin/getmusicip.sh
 fi
 }
 
 wyy_close()
 {	
 	kill -9 $(busybox ps -w | grep [U]nblockNeteaseMusic | awk '{print $1}') >/dev/null 2>&1
-	kill -9 $(busybox ps -w | grep [l]ogcheck.sh | awk '{print $1}') >/dev/null 2>&1
+#	kill -9 $(busybox ps -w | grep [l]ogcheck.sh | awk '{print $1}') >/dev/null 2>&1
 	
 	del_rule
 	logger -t "音乐解锁" "已关闭"
