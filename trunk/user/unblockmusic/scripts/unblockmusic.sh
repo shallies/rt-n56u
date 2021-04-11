@@ -149,8 +149,8 @@ fi
 
 wyy_close()
 {	
-	kill -9 $(busybox ps -w | grep UnblockNeteaseMusic | grep -v grep | awk '{print $1}') >/dev/null 2>&1
-#	kill -9 $(busybox ps -w | grep logcheck.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1
+	kill -9 $(busybox ps -w | grep [U]nblockNeteaseMusic | awk '{print $1}') >/dev/null 2>&1
+	kill -9 $(busybox ps -w | grep [l]ogcheck.sh | awk '{print $1}') >/dev/null 2>&1
 	
 	del_rule
 	logger -t "音乐解锁" "已关闭"
