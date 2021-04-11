@@ -122,35 +122,35 @@ add_rule
 
 wyy_start()
 {
-	[ $ENABLE -eq "0" ] && exit 0
-	if [ "$TYPE" = "default" ]; then
-		musictype=" "
-	else
-		musictype="-o $TYPE"
-	fi
-	if [ "$APPTYPE" == "go" ]; then
+[ $ENABLE -eq "0" ] && exit 0
+if [ "$TYPE" = "default" ]; then
+	musictype=" "
+else
+	musictype="-o $TYPE"
+fi
+if [ "$APPTYPE" == "go" ]; then
 	if [ $FLAC -eq 1 ]; then
-      ENABLE_FLAC="-b "
-    fi
-    UnblockNeteaseMusic $ENABLE_FLAC -p 5200 -sp 5201 -m 0 -c /etc_ro/UnblockNeteaseMusicGo/server.crt -k /etc_ro/UnblockNeteaseMusicGo/server.key -m 0 -e >/dev/null 2>&1 &
-    logger -t "音乐解锁" "启动 Golang Version (http:5200, https:5201)"    
-  else
-    kill -9 $(busybox ps -w | grep 'sleep 60m' | grep -v grep | awk '{print $1}') >/dev/null 2>&1
-    /usr/bin/UnblockNeteaseMusicCloud >/dev/null 2>&1 &
-     logger -t "音乐解锁" "启动 Cloud Version - Server: $cloudip (http:$cloudhttp, https:$cloudhttps)"
-	fi
+      		ENABLE_FLAC="-b "
+    	fi
+	UnblockNeteaseMusic $ENABLE_FLAC -p 5200 -sp 5201 -m 0 -c /etc_ro/UnblockNeteaseMusicGo/server.crt -k /etc_ro/UnblockNeteaseMusicGo/server.key -m 0 -e >/dev/null 2>&1 &
+ 	logger -t "音乐解锁" "启动 Golang Version (http:5200, https:5201)"    
+else
+  	kill -9 $(busybox ps -w | grep 'sleep 60m' | grep -v grep | awk '{print $1}') >/dev/null 2>&1
+  	/usr/bin/UnblockNeteaseMusicCloud >/dev/null 2>&1 &
+	logger -t "音乐解锁" "启动 Cloud Version - Server: $cloudip (http:$cloudhttp, https:$cloudhttps)"
+fi
 		
-	set_firewall
+set_firewall
 	
-  if [ "$APPTYPE" != "cloud" ]; then
-    /usr/bin/logcheck.sh >/dev/null 2>&1 &
-  fi
+# if [ "$APPTYPE" != "cloud" ]; then
+#	/usr/bin/logcheck.sh >/dev/null 2>&1 &
+#fi
 }
 
 wyy_close()
 {	
 	kill -9 $(busybox ps -w | grep UnblockNeteaseMusic | grep -v grep | awk '{print $1}') >/dev/null 2>&1
-	kill -9 $(busybox ps -w | grep logcheck.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1
+#	kill -9 $(busybox ps -w | grep logcheck.sh | grep -v grep | awk '{print $1}') >/dev/null 2>&1
 	
 	del_rule
 	logger -t "音乐解锁" "已关闭"
