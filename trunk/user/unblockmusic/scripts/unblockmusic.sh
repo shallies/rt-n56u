@@ -142,9 +142,9 @@ fi
 		
 set_firewall
 	
-# if [ "$APPTYPE" != "cloud" ]; then
-#	/usr/bin/logcheck.sh >/dev/null 2>&1 &
-#fi
+if [ "$APPTYPE" != "cloud" ]; then
+	/usr/bin/logcheck.sh >/dev/null 2>&1 &
+fi
 }
 
 wyy_close()
