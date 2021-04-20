@@ -141,7 +141,8 @@ else
 fi
 
 set_firewall
-	
+exit 0;
+
 if [ "$APPTYPE" != "cloud" ]; then
 #	/usr/bin/logcheck.sh >/dev/null 2>&1 &
 	/usr/bin/getmusicip.sh
