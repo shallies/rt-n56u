@@ -92,6 +92,7 @@ del_rule(){
 	$ipt_n -X CLOUD_MUSIC  2>/dev/null
 	iptables -D OUTPUT -d 223.252.199.10 -j DROP 2>/dev/null
 	
+	ipset -X music 2>/dev/null
 	ipset -X music_http 2>/dev/null
 	ipset -X music_https 2>/dev/null
 	
