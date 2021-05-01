@@ -2,12 +2,12 @@
 
 func_start(){
 	vlmcsd -l /tmp/kms.log
-	logger -t "vlmcsd" "Start"
+	logger -t "vlmcsd" " 服务已启动"
 }
 
 func_stop(){
 	killall -q vlmcsd
-	logger -t "vlmcsd" "Stop"
+	logger -t "vlmcsd" " 服务已停止"
 }
 
 case "$1" in
