@@ -61,3 +61,8 @@ if [ $(nvram get zerotier_enable) = 1 ] ; then
 logger -t "自动启动" "正在启动 zerotier ..."
 /usr/bin/zerotier.sh start
 fi
+
+if [ $(nvram get vlmcsd_enable) = 1 ] ; then
+logger -t "自动启动" "正在启动 vlmcsd ..."
+/usr/bin/vlmcsd.sh start &
+fi
