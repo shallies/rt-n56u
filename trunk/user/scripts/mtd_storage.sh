@@ -207,6 +207,7 @@ func_fill()
 	script_vpnsc="$dir_storage/vpns_client_script.sh"
 	script_vpncs="$dir_storage/vpnc_server_script.sh"
 	script_ezbtn="$dir_storage/ez_buttons_script.sh"
+	script_systime="$dir_storage/post_system_time_changed.sh"
 
 	user_hosts="$dir_dnsmasq/hosts"
 	user_dnsmasq_conf="$dir_dnsmasq/dnsmasq.conf"
@@ -455,6 +456,19 @@ EOF
 
 EOF
 		chmod 755 "$script_ezbtn"
+	fi
+
+	# create post-systime script
+	if [ ! -f "$script_systime" ] ; then
+		cat > "$script_systime" <<EOF
+#!/bin/sh
+
+### Custom user script
+### Called after system time changed
+### \$1 - time offset in seconds
+
+EOF
+		chmod 755 "$script_systime"
 	fi
 
 	# create user dnsmasq.conf
