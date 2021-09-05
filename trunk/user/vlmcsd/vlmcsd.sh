@@ -1,8 +1,13 @@
 #!/bin/sh
 
 func_start(){
+ps|grep -i [v]lmcsd
+if [ $? -ne 0 ] ; then
 	vlmcsd -l /tmp/kms.log
 	logger -t "vlmcsd" " 服务已启动"
+else
+	logger -t "vlmcsd" " 服务正在运行"
+fi
 }
 
 func_stop(){
