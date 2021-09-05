@@ -467,6 +467,10 @@ EOF
 ### Called after system time changed
 ### \$1 - time offset in seconds
 
+#if [ $1 -le -60 ] || [ $1 -ge 60 ] ; then
+#echo "Offset more then 60s, let's do something..."
+#fi
+
 EOF
 		chmod 755 "$script_systime"
 	fi
