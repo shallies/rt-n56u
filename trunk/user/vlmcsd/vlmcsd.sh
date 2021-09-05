@@ -3,6 +3,15 @@
 func_start(){
 ps|grep -i [v]lmcsd
 if [ $? -ne 0 ] ; then
+	count=60
+	while [ $count -gt 0 ]; do
+		if [ $(nvram get ntp_ready) = 1 ] ; then
+			break
+		fi
+		count=$((count-1))
+		sleep 5
+	done
+
 	vlmcsd -l /tmp/kms.log
 	logger -t "vlmcsd" " 服务已启动"
 else
