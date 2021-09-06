@@ -1072,7 +1072,10 @@ ntpc_updated_main(int argc, char *argv[])
 		logmessage("NTP Client", "System time changed, offset: %ss", offset);
 		sleep(5);
 		nvram_set_int("ntp_ready", 1);
-		doSystem("/usr/bin/system_time_changed.sh %s &", offset);
+		
+		const char *script_post_tc= SCRIPT_TIME_CHANGED;
+		if (check_if_file_exist(script_post_tc))
+			doSystem("%s %s &", script_post_tc, offset);
 	}
 
 	return 0;
