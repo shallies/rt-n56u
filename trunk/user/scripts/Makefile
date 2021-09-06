@@ -11,7 +11,6 @@ romfs:
 	$(ROMFSINST) -p +x $(THISDIR)/copyscripts.sh /usr/bin/copyscripts.sh
 	$(ROMFSINST) -p +x $(THISDIR)/autostart.sh /usr/bin/autostart.sh
 	$(ROMFSINST) -p +x $(THISDIR)/led.sh /usr/bin/led.sh
-	$(ROMFSINST) -p +x $(THISDIR)/system_time_changed.sh /usr/bin/system_time_changed.sh
 ifeq ($(STORAGE_ENABLED),y)
 	$(ROMFSINST) /sbin/automount.sh
 endif
