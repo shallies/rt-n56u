@@ -47,6 +47,7 @@
 #define SCRIPT_WPACLI_WAN		"/tmp/wpacli.script"
 #define SCRIPT_DHCP6C_WAN		"/tmp/dhcp6c.script"
 
+#define SCRIPT_TIME_CHANGED			"/etc/storage/post_time_changed_script.sh"
 #define SCRIPT_POST_WAN			"/etc/storage/post_wan_script.sh"
 #define SCRIPT_POST_FIREWALL		"/etc/storage/post_iptables_script.sh"
 #define SCRIPT_INTERNET_STATE		"/etc/storage/inet_state_script.sh"
