@@ -207,7 +207,7 @@ func_fill()
 	script_vpnsc="$dir_storage/vpns_client_script.sh"
 	script_vpncs="$dir_storage/vpnc_server_script.sh"
 	script_ezbtn="$dir_storage/ez_buttons_script.sh"
-	script_systime="$dir_storage/post_system_time_changed.sh"
+	script_post_tc="$dir_storage/post_time_changed_script.sh"
 
 	user_hosts="$dir_dnsmasq/hosts"
 	user_dnsmasq_conf="$dir_dnsmasq/dnsmasq.conf"
@@ -472,7 +472,7 @@ EOF
 #fi
 
 EOF
-		chmod 755 "$script_systime"
+		chmod 755 "$script_post_tc"
 	fi
 
 	# create user dnsmasq.conf
