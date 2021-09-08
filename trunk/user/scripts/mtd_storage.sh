@@ -467,9 +467,17 @@ EOF
 ### Called after system time changed
 ### \$1 - time offset in seconds
 
-#if [ $1 -le -60 ] || [ $1 -ge 60 ] ; then
+if [ $1 -le -60 ] || [ $1 -ge 60 ] ; then
 #echo "Offset more then 60s, let's do something..."
-#fi
+	if [ -f "$script_postw" ] ; then
+		ping -c 1 -W 1 114.114.114.114 >/dev/null
+		if [ $? = 0 ]; then
+			eval "$script_postw up"
+		else
+			eval "$script_postw down"
+		fi
+	fi
+fi
 
 EOF
 		chmod 755 "$script_post_tc"
