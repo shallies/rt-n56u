@@ -467,16 +467,45 @@ EOF
 ### Called after system time changed
 ### \$1 - time offset in seconds
 
-if [ $1 -le -60 ] || [ $1 -ge 60 ] ; then
-#echo "Offset more then 60s, let's do something..."
-	if [ -f "$script_postw" ] ; then
-		ping -c 1 -W 1 114.114.114.114 >/dev/null
-		if [ $? = 0 ]; then
-			$script_postw up
-		else
-			$script_postw down
-		fi
-	fi
+if [ ! -n "$1" ] || [ ! -f "/etc/storage/post_wan_script.sh" ] ; then
+	exit
+fi
+
+vCron="/etc/storage/cron/crontabs/admin"
+vOn=`grep "led.sh \{1,\}-ON" $vCron 2>/dev/null|awk '{print $2*60+$1}'`
+vOff=`grep "led.sh \{1,\}-OFF" $vCron 2>/dev/null|awk '{print $2*60+$1}'`
+
+if [ "$vOn" = "" ] || [ "$vOff" = "" ]; then
+	exit
+fi
+
+vOffset=`echo "$1"|sed "s/\..*//g"`
+if [ $vOffset -ge 0 ] ; then
+	vOffset=$(($vOffset/60+2))
+else
+	vOffset=$(($vOffset/60-2))
+fi
+
+vOff=$(expr $vOff - $vOn )
+while [ $vOff -le 0 ]; do
+	vOff=$((vOff+24*60))
+done
+
+vCur=$(expr `date +%H` \* 60 + `date +%M` - $vOn)
+vCur0=$(expr $vCur + $1)
+while [ $vCur -lt 0 ]; do
+	vCur=$((vCur+24*60))
+done
+while [ $vCur0 -lt 0 ]; do
+	vCur0=$((vCur0+24*60))
+done
+
+if [ $vCur0 -lt $vOff ] && [ $vCur -lt $vOff ] ; then
+	exit
+fi
+
+if [ $vCur0 -ge $vOff ] && [ $vCur -ge $vOff ] ; then
+	exit
 fi
 
 EOF
