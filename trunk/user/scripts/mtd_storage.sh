@@ -472,9 +472,9 @@ if [ $1 -le -60 ] || [ $1 -ge 60 ] ; then
 	if [ -f "$script_postw" ] ; then
 		ping -c 1 -W 1 114.114.114.114 >/dev/null
 		if [ $? = 0 ]; then
-			eval "$script_postw up"
+			$script_postw up
 		else
-			eval "$script_postw down"
+			$script_postw down
 		fi
 	fi
 fi
