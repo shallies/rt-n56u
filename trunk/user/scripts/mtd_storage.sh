@@ -459,8 +459,8 @@ EOF
 	fi
 
 	# create post-systime script
-	if [ ! -f "$script_systime" ] ; then
-		cat > "$script_systime" <<EOF
+	if [ ! -f "$script_post_tc" ] ; then
+		cat > "$script_post_tc" <<EOF
 #!/bin/sh
 
 ### Custom user script
