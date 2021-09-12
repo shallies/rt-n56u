@@ -467,6 +467,8 @@ EOF
 ### Called after system time changed
 ### \$1 - time offset in seconds
 
+logger -t "时间校对" " $1秒"
+
 EOF
 		chmod 755 "$script_post_tc"
 	fi
