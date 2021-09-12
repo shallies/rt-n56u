@@ -1,7 +1,7 @@
 #!/bin/sh
 
 func_start(){
-ps|grep -i [v]lmcsd >/dev/null
+ps|grep vlmcsd|grep -v grep
 if [ $? -ne 0 ] ; then
 	count=60
 	while [ $count -gt 0 ]; do
