@@ -1,8 +1,8 @@
 #!/bin/sh
 
 func_start(){
-ps|grep vlmcsd|grep -v grep
-if [ $? -ne 0 ] ; then
+check_vlmcsd=`ps|grep "vlmcsd[ ]"`
+if [ -z "$check_vlmcsd" ] ; then
 	count=60
 	while [ $count -gt 0 ]; do
 		if [ $(nvram get ntp_ready) = 1 ] ; then
