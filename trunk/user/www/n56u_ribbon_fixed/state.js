@@ -738,6 +738,7 @@ function show_footer(){
 	footer_code +='<div align="center">\n';
 	footer_code +='  <span>Highcharts by Torstein Hønsi & <a href="http://www.highcharts.com">Highsoft</a></span></br>\n';
 	footer_code +='  <span>Big icons designed by <a href="http://www.freepik.com">Freepik</a></br></span>\n';
+	footer_code +='  <span>Revised by <a href="https://github.com/shallies">hjh98</a></br></span>\n';
 	footer_code +='  <span>Non-Commercial Use Only</span></br>\n';
 	footer_code +='</div>\n';
 
