@@ -26,7 +26,7 @@ romfs:
 	cp -R $(WEBUI_NAME) $(ROMFS_DIR)/www
 	rm -f $(ROMFS_DIR)/www/httpd_check.htm
 	echo "ASUSTeK" > $(ROMFS_DIR)/www/httpd_check.htm
-	cd $(ROMFS_DIR)/www && ln -sf /opt/share/www/custom custom
+	cd $(ROMFS_DIR)/www && ln -sf /etc/storage/shared_www_custom custom
 	cp dict/EN.header $(ROMFS_DIR)/www
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_LANG_BR),y)
 	echo "LANG_BR=Brazil" >> $(ROMFS_DIR)/www/EN.header
