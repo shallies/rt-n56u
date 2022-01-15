@@ -197,6 +197,7 @@ func_fill()
 	dir_wlan="$dir_storage/wlan"
 	dir_chnroute="$dir_storage/chinadns"
 	#dir_gfwlist="$dir_storage/gfwlist"
+	dir_shared_www_custom="$dir_storage/shared_www_custom"
 
 	script_start="$dir_storage/start_script.sh"
 	script_started="$dir_storage/started_script.sh"
@@ -227,6 +228,9 @@ func_fill()
 
 	# create https dir
 	[ ! -d "$dir_httpssl" ] && mkdir -p -m 700 "$dir_httpssl"
+
+	# create dir_shared_www_custom
+	[ ! -d "$dir_shared_www_custom" ] && mkdir -p -m 730 "$dir_shared_www_custom"
 
 	# create chnroute.txt
 	if [ ! -d "$dir_chnroute" ] ; then
