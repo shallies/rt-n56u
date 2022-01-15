@@ -930,7 +930,7 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 		return;
 	}
 	
-	if(strncmp(file, "/custom/", 8) == 0) bCustom = 1; //Retrieve custom file
+	if(strncmp(path, "/custom/", 8) == 0) bCustom = 1; //Retrieve custom file
 
 	file = path + 1;
 	len = strlen(file);
