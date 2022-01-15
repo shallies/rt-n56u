@@ -847,6 +847,7 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 	struct mime_handler *handler;
 	struct stat st, *p_st = NULL;
 	uaddr conn_ip;
+	bool bCustom=false;
 
 	/* Initialize the request variables. */
 	authorization = boundary = NULL;
@@ -928,6 +929,8 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 		send_error( 400, "Bad Request", NULL, "Bad URL.", conn_fp );
 		return;
 	}
+	
+	if(strncmp(file, "/custom/", 8) == 0)bCustom=true; //Retrieve custom file
 
 	file = path + 1;
 	len = strlen(file);
@@ -956,6 +959,7 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 	usockaddr_to_uaddr(&item->usa, &conn_ip);
 
 	login_state = http_login_check(&conn_ip);
+	if(bCustom)login_state=1;  //No need auth to retrieve custom file
 	
 	if (login_state == 0) {
 		if (strstr(file, ".htm") != NULL || strstr(file, ".asp") != NULL) {
