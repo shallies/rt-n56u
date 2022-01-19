@@ -980,12 +980,12 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 			break;
 	}
 
+	if (handler->pattern == NULL && bCustom == 1)
+		handler++;  //Default handler for custom path. @2022-01-19 08:00
+	
 	if (!handler->pattern) {
-		if(bCustom == 1)
-			handler++; //Default handler for custom path. @2022-01-19 08:00
-		else{
 			send_error( 404, "Not Found", NULL, "URL was not found.", conn_fp );
-			return;}
+			return;
 	}
 
 #if defined (SUPPORT_HTTPS)
