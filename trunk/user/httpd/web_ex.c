@@ -4221,7 +4221,6 @@ struct mime_handler mime_handlers[] = {
 	/* no-cached html/asp files with translations */
 	{ "**.htm*", "text/html", no_cache_IE, do_html_apply_post, do_ej, 1 },
 	{ "**.asp*", "text/html", no_cache_IE, do_html_apply_post, do_ej, 1 },
-	{ "**.log", "text/plain; charset=utf-8", no_cache_IE7, NULL, do_tmp_log, 0 },
 
 	/* no-cached javascript files with translations */
 	{ "**.js",  "text/javascript", no_cache_IE, NULL, do_ej, 1 },
@@ -4256,7 +4255,15 @@ struct mime_handler mime_handlers[] = {
 	{ "restore_nv.cgi*", "text/html", no_cache_IE, do_restore_nv_post, do_restore_nv_cgi, 1 },
 	{ "restore_st.cgi*", "text/html", no_cache_IE, do_restore_st_post, do_restore_st_cgi, 1 },
 
-	{ NULL, NULL, NULL, NULL, NULL, 0 }
+//Additional handler. @2022-01-19 08:00
+	{ "**.log", "text/plain; charset=utf-8", no_cache_IE7, NULL, do_tmp_log, 0 },
+	{ "**.lst", "text/plain; charset=utf-8", no_cache_IE7, NULL, do_file, 0 },
+	{ "**.txt", "text/plain; charset=utf-8", no_cache_IE7, NULL, do_file, 0 },
+	
+	{ NULL, NULL, NULL, NULL, NULL, 0 },
+	
+//Default handler for custom path. @2022-01-19 08:00
+	{ "**", "application/octet-stream", no_cache_IE7, NULL, do_file, 0 }
 };
 
 // traffic monitor
