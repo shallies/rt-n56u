@@ -984,8 +984,8 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 		handler++;  //Default handler for custom path. @2022-01-19 08:00
 	
 	if (!handler->pattern) {
-			send_error( 404, "Not Found", NULL, "URL was not found.", conn_fp );
-			return;
+		send_error( 404, "Not Found", NULL, "URL was not found.", conn_fp );
+		return;
 	}
 
 #if defined (SUPPORT_HTTPS)
