@@ -930,7 +930,7 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 		return;
 	}
 	
-	if(strncmp(path, "/custom/", 8) == 0) bCustom = 1; //Retrieve custom file
+	if(strncmp(path, "/custom/", 8) == 0) bCustom = 1; //Retrieve custom file. @2022-01-15 08:00
 
 	file = path + 1;
 	len = strlen(file);
@@ -959,7 +959,7 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 	usockaddr_to_uaddr(&item->usa, &conn_ip);
 
 	login_state = http_login_check(&conn_ip);
-	if(bCustom == 1) login_state = 1; //No need auth to retrieve custom file
+	if(bCustom == 1) login_state = 1; //No need auth to retrieve custom file. @2022-01-15 08:00
 	
 	if (login_state == 0) {
 		if (strstr(file, ".htm") != NULL || strstr(file, ".asp") != NULL) {
@@ -981,8 +981,11 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 	}
 
 	if (!handler->pattern) {
-		send_error( 404, "Not Found", NULL, "URL was not found.", conn_fp );
-		return;
+		if(bCustom == 1)
+			handler++; //Default handler for custom path. @2022-01-19 08:00
+		else{
+			send_error( 404, "Not Found", NULL, "URL was not found.", conn_fp );
+			return;}
 	}
 
 #if defined (SUPPORT_HTTPS)
