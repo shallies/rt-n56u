@@ -4263,7 +4263,8 @@ struct mime_handler mime_handlers[] = {
 	{ NULL, NULL, NULL, NULL, NULL, 0 },
 	
 //Default handler for custom path. @2022-01-19 08:00
-	{ "**", "application/octet-stream", no_cache_IE7, NULL, do_file, 0 }
+	{ "**", "application/octet-stream", no_cache_IE7, NULL, do_file, 0 },
+	{ NULL, NULL, NULL, NULL, NULL, 0 }
 };
 
 // traffic monitor
