@@ -31,7 +31,11 @@ case "$1" in
 	-OFF)
 		led_off;;
 	-ON)
-		ping -c 1 -W 1 114.114.114.114 >/dev/null
+		server_to_ping=`nvram get server_to_ping`
+		if [ "$server_to_ping" = "" ]; then
+			server_to_ping="8.8.8.8"
+		fi
+		ping -c 1 -W $server_to_ping >/dev/null
 		if [ $? = 0 ]; then
 			led_blue
 		else
