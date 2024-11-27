@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
@@ -103,7 +103,7 @@ jobs:
         done
         echo "PackageName=Padavan-K2P-$(date +%Y%m%d)" >> $GITHUB_ENV
     - name: 'Upload packages'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@master
       with:
        name: ${{ env.PackageName }}
        path: /opt/images
