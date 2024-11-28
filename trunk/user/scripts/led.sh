@@ -35,7 +35,7 @@ case "$1" in
 		if [ "$server_to_ping" = "" ]; then
 			server_to_ping="8.8.8.8"
 		fi
-		ping -c 1 -W $server_to_ping >/dev/null
+		ping -c 1 -W 1 $server_to_ping >/dev/null
 		if [ $? = 0 ]; then
 			led_blue
 		else
