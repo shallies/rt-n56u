@@ -33,7 +33,7 @@ jobs:
       run: |
         cwd=`pwd`
         CONFIG_TOOLCHAIN_DIR=${cwd//\//\\\/}\\/toolchain-mipsel
-        cd trunk
+        cd /opt/rt-n56u/trunk
         sed -i "0,/FIRMWARE_BUILDS_REV.*$/s//FIRMWARE_BUILDS_REV=$(date +%Y%m%d)/" versions.inc
         for m in $TNAME;
         do
