@@ -31,7 +31,7 @@ case "$1" in
 	-OFF)
 		led_off;;
 	-ON)
-		server_to_ping=`nvram get server_to_ping`
+		server_to_ping=`nvram get di_addr5`
 		if [ "$server_to_ping" = "" ]; then
 			server_to_ping="8.8.8.8"
 		fi
