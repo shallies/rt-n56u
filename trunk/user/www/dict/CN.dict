@@ -442,6 +442,7 @@ InetCheckModeItem0=打开 WebUI 时
 InetCheckModeItem1=持续监测
 InetCheckHosts=监测主机列表 (TCP)
 InetCheckHostIP4=IP 地址和端口
+PingCheckICMP_IP=IP 地址（Ping ICMP）
 InetCheckPoll=监测设置
 InetCheckPeriod=连接成功/失败后的监测间隔 (秒):
 InetCheckTimeout=TCP 连接超时时间 (秒):
