@@ -786,12 +786,6 @@ do_file(const char *url, FILE *stream)
 	}
 }
 
-void
-do_tmp_log(const char *url, FILE *stream)
-{
-	do_file(url, stream);
-}
-
 static int
 set_preferred_lang(char *cur)
 {
@@ -838,16 +832,14 @@ set_preferred_lang(char *cur)
 static void
 handle_request(FILE *conn_fp, const conn_item_t *item)
 {
-	char line[2048];
-	char tmp_path[1024];
+	char line[4096];
 	char *method, *path, *protocol, *authorization, *boundary;
 	char *cur, *end, *cp, *file, *query;
 	int len, login_state, method_id, do_logout, clen = 0;
 	time_t if_modified_since = (time_t)-1;
-	struct mime_handler *handler;
+	struct mime_handler oHandler, *handler;
 	struct stat st, *p_st = NULL;
 	uaddr conn_ip;
-	int bCustom=  0;
 
 	/* Initialize the request variables. */
 	authorization = boundary = NULL;
@@ -929,8 +921,6 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 		send_error( 400, "Bad Request", NULL, "Bad URL.", conn_fp );
 		return;
 	}
-	
-	if(strncmp(path, "/custom/", 8) == 0) bCustom = 1; //Retrieve custom file. @2022-01-15 08:00
 
 	file = path + 1;
 	len = strlen(file);
@@ -959,7 +949,6 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 	usockaddr_to_uaddr(&item->usa, &conn_ip);
 
 	login_state = http_login_check(&conn_ip);
-	if(bCustom == 1) login_state = 1; //No need auth to retrieve custom file. @2022-01-15 08:00
 	
 	if (login_state == 0) {
 		if (strstr(file, ".htm") != NULL || strstr(file, ".asp") != NULL) {
@@ -974,14 +963,24 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 		send_headers( 401, "Unauthorized", NULL, NULL, NULL, conn_fp );
 		return;
 	}
-
+/*
 	for (handler = mime_handlers; handler->pattern; handler++) {
 		if (match(handler->pattern, file))
 			break;
 	}
-
-	if (handler->pattern == NULL && bCustom == 1)
-		handler++;  //Default handler for custom path. @2022-01-19 08:00
+*/
+	for (handler = &mime_handlers[1]; handler->pattern; handler++) {
+		if (match(handler->pattern, file))
+			break;
+	}
+	memcpy(&oHandler, handler, sizeof(oHandler));
+	if (match(mime_handlers[0].pattern, file)){
+		if(oHandler.pattern)
+			oHandler.need_auth=mime_handlers[0].need_auth;
+		else 
+			memcpy(&oHandler, &mime_handlers[0], sizeof(oHandler));
+	}
+	handler=&oHandler;
 	
 	if (!handler->pattern) {
 		send_error( 404, "Not Found", NULL, "URL was not found.", conn_fp );
@@ -1020,12 +1019,7 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 			do_cgi_clear();
 	}
 
-	if (handler->output == do_tmp_log) {
-		strcpy(tmp_path, "/tmp/");
-		strcat(tmp_path, file);
-		file=tmp_path;
-	}
-	if (handler->output == do_file || handler->output == do_tmp_log) {
+	if (handler->output == do_file) {
 		if (stat(file, &st) == 0 && !S_ISDIR(st.st_mode)) {
 			p_st = &st;
 			if (!handler->extra_header && if_modified_since != (time_t)-1 && if_modified_since == st.st_mtime) {
@@ -1372,4 +1366,3 @@ main(int argc, char **argv)
 
 	return 0;
 }
-
