@@ -230,6 +230,7 @@ func_fill()
 30 21 * * * /usr/bin/led.sh -OFF "定时关闭"
 30 06 * * * /usr/bin/led.sh -ON "定时开启"
 30 03 * * * /sbin/restart_wan
+00 04 * * 6 echo 3 > /proc/sys/vm/drop_caches
 EOF
 	fi
 
@@ -238,6 +239,7 @@ EOF
 
 	# create dir_shared_www_custom
 	[ ! -d "$dir_shared_www_custom" ] && mkdir -p -m 730 "$dir_shared_www_custom"
+	[ -d "$dir_shared_www_custom" ] && ln -sf /tmp "$dir_shared_www_custom/tmp"
 
 	# create chnroute.txt
 	if [ ! -d "$dir_chnroute" ] ; then
