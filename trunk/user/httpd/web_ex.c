@@ -4189,6 +4189,9 @@ do_kp_crt_file(const char *url, FILE *stream)
 #endif
 
 struct mime_handler mime_handlers[] = {
+	/* No need to authenticate for custom folders */
+	{ "custom/**", "text/plain", no_cache_IE, NULL, do_file, 0 }, // Custom folders
+
 	/* cached javascript files w/o translations */
 	{ "jquery.js", "text/javascript", NULL, NULL, do_file, 0 }, // 2012.06 Eagle23
 	{ "**bootstrap.min.js", "text/javascript", NULL, NULL, do_file, 0 }, // 2012.06 Eagle23
