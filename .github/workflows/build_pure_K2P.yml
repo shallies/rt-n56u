@@ -29,6 +29,7 @@ jobs:
     - name: Build Firmware
       env:
         TNAME: "K2P-5.0 K2P"
+        KERNEL: "3.4"
       run: |
         cwd=`pwd`
         CONFIG_TOOLCHAIN_DIR=${cwd//\//\\\/}\\/toolchain-mipsel
@@ -94,12 +95,12 @@ jobs:
           echo "Doing clear_tree_simple ..."
           sudo ./clear_tree_simple
           sudo ./build_firmware_modify $m 0
-          sudo mv -f images/*.trx /opt/images/$m-3.4.3.9-099-$(date +%Y%m%d.%H%M).trx
+          sudo mv -f images/*.trx /opt/images/$m-$KERNEL-$(date +%y%m%d.%H%M).trx
         done
 
     - name: Set Package Name
       id: naming
-      run: echo "PackageName=K2P-$(date +%Y%m%d-%H%M)" >> $GITHUB_OUTPUT
+      run: echo "PackageName=K2P-$(date +%Y%m%d.%H%M)" >> $GITHUB_OUTPUT
         
     - name: Upload packages
       uses: actions/upload-artifact@v4
