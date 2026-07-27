@@ -89,11 +89,12 @@ jobs:
             echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config
           fi
           ####################################################################################
+          sed -i 's/CONFIG_FIRMWARE_INCLUDE_NANO=n/CONFIG_FIRMWARE_INCLUDE_NANO=y/g' .config
           sed -i "s/^CONFIG_TOOLCHAIN_DIR=.*$/CONFIG_TOOLCHAIN_DIR=${CONFIG_TOOLCHAIN_DIR}/g" .config
           echo "Doing clear_tree_simple ..."
           sudo ./clear_tree_simple
           sudo ./build_firmware_modify $m 0
-          sudo mv -f images/*.trx /opt/images/$m-3.4.3.9-099.trx
+          sudo mv -f images/*.trx /opt/images/$m-3.4.3.9-099-$(date +%Y%m%d.%H%M).trx
         done
 
     - name: Set Package Name
