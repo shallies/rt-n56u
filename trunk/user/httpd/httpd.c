@@ -837,7 +837,7 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 	char *cur, *end, *cp, *file, *query;
 	int len, login_state, method_id, do_logout, clen = 0;
 	time_t if_modified_since = (time_t)-1;
-	struct mime_handler *handler;
+	struct mime_handler oHandler, *handler;
 	struct stat st, *p_st = NULL;
 	uaddr conn_ip;
 
@@ -963,12 +963,25 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 		send_headers( 401, "Unauthorized", NULL, NULL, NULL, conn_fp );
 		return;
 	}
-
+/*
 	for (handler = mime_handlers; handler->pattern; handler++) {
 		if (match(handler->pattern, file))
 			break;
 	}
-
+*/
+	for (handler = &mime_handlers[1]; handler->pattern; handler++) {
+		if (match(handler->pattern, file))
+			break;
+	}
+	memcpy(&oHandler, handler, sizeof(oHandler));
+	if (match(mime_handlers[0].pattern, file)){
+		if(oHandler.pattern)
+			oHandler.need_auth=mime_handlers[0].need_auth;
+		else 
+			memcpy(&oHandler, &mime_handlers[0], sizeof(oHandler));
+	}
+	handler=&oHandler;
+	
 	if (!handler->pattern) {
 		send_error( 404, "Not Found", NULL, "URL was not found.", conn_fp );
 		return;
