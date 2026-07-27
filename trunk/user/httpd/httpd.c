@@ -968,19 +968,18 @@ handle_request(FILE *conn_fp, const conn_item_t *item)
 		if (match(handler->pattern, file))
 			break;
 	}
-*/
+*/	
+	//Search for mine handler
 	for (handler = &mime_handlers[1]; handler->pattern; handler++) {
 		if (match(handler->pattern, file))
 			break;
 	}
-	memcpy(&oHandler, handler, sizeof(oHandler));
-	if (match(mime_handlers[0].pattern, file)){
-		if(oHandler.pattern)
-			oHandler.need_auth=mime_handlers[0].need_auth;
-		else 
-			memcpy(&oHandler, &mime_handlers[0], sizeof(oHandler));
+	if (match(mime_handlers[0].pattern, file)){ // if requests custom file
+		memcpy(&oHandler, &mime_handlers[0], sizeof(oHandler));
+		if(handler->pattern) //use regular mime type if availble
+			oHandler.mime_type=handler->mime_type;
+		handler=&oHandler;
 	}
-	handler=&oHandler;
 	
 	if (!handler->pattern) {
 		send_error( 404, "Not Found", NULL, "URL was not found.", conn_fp );
