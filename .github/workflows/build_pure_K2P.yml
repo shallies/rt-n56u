@@ -28,7 +28,7 @@ jobs:
 
     - name: Build Firmware
       env:
-        TNAME: "K2P-5.0 K2P"
+        TNAME: "K2P-5.0"
         KERNEL: "3.4"
       run: |
         cwd=`pwd`
